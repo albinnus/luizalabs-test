@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: toor
+    url: jdbc:mysql://localhost:3306/test
+  redis:
+    host: localhost
+  jpa:
+    open-in-view: false
+  cache:
+    type: redis
+debug: true
+api:
+  product:
+    url: http://challenge-api.luizalabs.com/api/product
+    name: product-client
