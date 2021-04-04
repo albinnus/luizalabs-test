@@ -5,9 +5,11 @@ import br.com.luizalabs.test.entities.Product;
 import br.com.luizalabs.test.exceptions.ClientAlreadyExistsException;
 import br.com.luizalabs.test.exceptions.ClientException;
 import br.com.luizalabs.test.exceptions.ClientNotExistsException;
+import br.com.luizalabs.test.exceptions.ProductNotFoundException;
 import br.com.luizalabs.test.mappers.entities.ClientMapper;
-import br.com.luizalabs.test.repositories.apis.ProductRepository;
+import br.com.luizalabs.test.repositories.apis.ProductRepositoryClient;
 import br.com.luizalabs.test.services.ClientService;
+import br.com.luizalabs.test.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,7 @@ import java.util.UUID;
 public class ClientController {
 
     private final ClientService clientService;
-    private final ProductRepository productRepository;
+    private final ProductService productService;
     private final ClientMapper clientMapper;
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
@@ -38,8 +40,8 @@ public class ClientController {
     }
 
     @GetMapping("/test")
-    public Product teste(){
+    public Product teste() throws ProductNotFoundException {
 
-        return productRepository.getProductById(UUID.fromString("1579762e-cfc3-5f20-afb7-8208ea92cbd1"));
+        return productService.findById(UUID.fromString("1579762e-cfc3-5f20-afb7-8208ea92cdbd1"));
     }
 }

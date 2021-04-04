@@ -1,15 +1,14 @@
-package br.com.luizalabs.test.repositories.apis;
+package br.com.luizalabs.test.repositories;
 
 import br.com.luizalabs.test.entities.Product;
+import br.com.luizalabs.test.exceptions.ProductNotFoundException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
-@FeignClient(name = "${api.product.url}", url ="${api.product.url}" )
-public interface ProductRepository {
 
-    @GetMapping("/{id}/")
-    Product getProductById(@PathVariable UUID id);
+public interface ProductRepository {
+    Product getProductById(UUID id) throws ProductNotFoundException;
 }
