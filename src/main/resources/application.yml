@@ -12,6 +12,9 @@ spring:
     open-in-view: false
   cache:
     type: redis
+  data:
+    mongodb:
+      host: localhost
 debug: true
 api:
   product:

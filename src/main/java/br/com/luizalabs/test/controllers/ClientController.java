@@ -2,17 +2,18 @@ package br.com.luizalabs.test.controllers;
 
 import br.com.luizalabs.test.dtos.ClientDto;
 import br.com.luizalabs.test.entities.Product;
-import br.com.luizalabs.test.exceptions.ClientAlreadyExistsException;
-import br.com.luizalabs.test.exceptions.ClientException;
-import br.com.luizalabs.test.exceptions.ClientNotExistsException;
-import br.com.luizalabs.test.exceptions.ProductNotFoundException;
+import br.com.luizalabs.test.entities.ProductList;
+import br.com.luizalabs.test.exceptions.*;
 import br.com.luizalabs.test.mappers.entities.ClientMapper;
+import br.com.luizalabs.test.repositories.ProductListRepository;
 import br.com.luizalabs.test.repositories.apis.ProductRepositoryClient;
 import br.com.luizalabs.test.services.ClientService;
+import br.com.luizalabs.test.services.ProductListService;
 import br.com.luizalabs.test.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 @RestController
@@ -24,8 +25,10 @@ public class ClientController {
     private final ProductService productService;
     private final ClientMapper clientMapper;
 
+    private final ProductListService productListService;
+
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ClientDto create(@RequestBody ClientDto clientDto) throws ClientAlreadyExistsException, ClientException {
+    public ClientDto create(@RequestBody ClientDto clientDto) throws ClientAlreadyExistsException, ClientException, ProductListException {
         return  clientMapper.toDto(clientService.create(clientMapper.toEntity(clientDto)));
     }
 
@@ -41,7 +44,13 @@ public class ClientController {
 
     @GetMapping("/test")
     public Product teste() throws ProductNotFoundException {
-
+        HashSet<Product> products = new HashSet<Product>();
+      //  products.add(productService.findById(UUID.fromString("1bf0f365-fbdd-4e21-9786-da459d78dd1f")));
+       // products.add(productService.findById(UUID.fromString("958ec015-cfcf-258d-c6df-1721de0ab6ea")));
+       // ProductList productList = ProductList.builder().userId(2L).list(products).build();
+      //  productListRepository.addProduct(productService.findById(UUID.fromString("4bd442b1-4a7d-2475-be97-a7b22a08a024")));
+        //productListRepository.save(productList);
+        productListService.addProduct(productService.findById(UUID.fromString("958ec015-cfcf-258d-c6df-1721de0ab6ea")),15L);
         return productService.findById(UUID.fromString("1579762e-cfc3-5f20-afb7-8208ea92cdbd1"));
     }
 }
