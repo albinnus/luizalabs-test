@@ -11,6 +11,7 @@ import br.com.luizalabs.test.services.ProductListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -24,7 +25,7 @@ public class ClientController {
     private final ProductListService productListService;
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ClientDto create(@RequestBody ClientDto clientDto) throws ClientAlreadyExistsException, ClientException, ProductListException {
+    public ClientDto create(@Valid @RequestBody ClientDto clientDto) throws ClientAlreadyExistsException, ClientException, ProductListException {
         return  clientMapper.toDto(clientService.create(clientMapper.toEntity(clientDto)));
     }
 
@@ -34,7 +35,7 @@ public class ClientController {
     }
 
     @PutMapping(value = "/{id}", produces = "application/json")
-    public ClientDto updateById(@PathVariable("id") long id, @RequestBody ClientDto clientDto) throws ClientNotExistsException, ClientException {
+    public ClientDto updateById(@PathVariable("id") long id, @Valid @RequestBody ClientDto clientDto) throws ClientNotExistsException, ClientException {
         return  clientMapper.toDto(clientService.updateById(id, clientMapper.toEntity(clientDto)));
     }
 
@@ -45,7 +46,7 @@ public class ClientController {
     }
 
     @PostMapping("/{id}/products")
-    public void addProduct(@PathVariable("id") Long userId, @RequestBody ProductListDto productListDto) throws ProductNotFoundException, ClientNotExistsException, ClientException {
+    public void addProduct(@PathVariable("id") Long userId,@Valid @RequestBody ProductListDto productListDto) throws ProductNotFoundException, ClientNotExistsException, ClientException {
        productListService.addProduct(productListDto.getProductId(), userId);
     }
 

@@ -37,10 +37,5 @@ public class ClientAdvices {
         return ApiErrorDto.builder().status(HttpStatus.NOT_FOUND).timestamp(LocalDateTime.now()).message(c.getMessage()).build();
     }
 
-    @ExceptionHandler(Exception.class)
-    public ApiErrorDto handle(Exception ex,
-                              HttpServletRequest request, HttpServletResponse response) {
-        return ApiErrorDto.builder().status(HttpStatus.BAD_REQUEST).timestamp(LocalDateTime.now()).message(ex.getMessage()).build();
 
-    }
 }
