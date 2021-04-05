@@ -8,6 +8,5 @@ import br.com.luizalabs.test.exceptions.UserNotFoundException;
 public interface UserService {
 
     void updateUserToken(String email, String token) throws UserException;
-
     User getUserByEmail(String email) throws UserNotFoundException, UserException;
 }

@@ -4,6 +4,7 @@ import br.com.luizalabs.test.entities.Client;
 import br.com.luizalabs.test.exceptions.ClientAlreadyExistsException;
 import br.com.luizalabs.test.exceptions.ClientException;
 import br.com.luizalabs.test.exceptions.ClientNotExistsException;
+import br.com.luizalabs.test.exceptions.UserException;
 import br.com.luizalabs.test.mappers.repositories.ClientRepositoryMapper;
 import br.com.luizalabs.test.properties.ClientQueries;
 import br.com.luizalabs.test.repositories.ClientRepository;
@@ -74,5 +75,19 @@ public class ClientRepositoryImp implements ClientRepository {
             throw  new ClientException(e.getMessage());
         }
 
+    }
+
+    @Override
+    public boolean delete(Long id) throws ClientException {
+        try {
+            int result = jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(clientQueries.getDeleteClientById());
+                ps.setLong(1, id);
+                return ps;
+            });
+            return result == 1;
+        }catch (Exception e){
+            throw  new ClientException(e.getMessage());
+        }
     }
 }

@@ -48,4 +48,9 @@ public class ClientController {
     public void addProduct(@PathVariable("id") Long userId, @RequestBody ProductListDto productListDto) throws ProductNotFoundException, ClientNotExistsException, ClientException {
        productListService.addProduct(productListDto.getProductId(), userId);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteClientById(@PathVariable("id") Long userId) throws ClientException {
+        clientService.deleteById(userId);
+    }
 }

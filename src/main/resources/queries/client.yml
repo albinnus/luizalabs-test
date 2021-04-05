@@ -2,3 +2,4 @@ client:
   insert-client: "INSERT INTO client (name, email) VALUES(?, ?)"
   select-client-by-id: "SELECT id, name, email from client WHERE id = ?"
   update-client-by-id: "UPDATE client SET name=?, email=? WHERE  id = ?"
+  delete-client-by-id: "DELETE FROM client WHERE id = ?"

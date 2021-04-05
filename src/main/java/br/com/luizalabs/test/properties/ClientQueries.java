@@ -14,4 +14,5 @@ public class ClientQueries {
     private String insertClient;
     private String selectClientById;
     private String updateClientById;
+    private String deleteClientById;
 }

@@ -6,6 +6,7 @@ import br.com.luizalabs.test.entities.Product;
 import br.com.luizalabs.test.entities.ProductList;
 import br.com.luizalabs.test.exceptions.ClientException;
 import br.com.luizalabs.test.exceptions.ClientNotExistsException;
+import br.com.luizalabs.test.exceptions.ProductListException;
 import br.com.luizalabs.test.exceptions.ProductNotFoundException;
 import br.com.luizalabs.test.repositories.ProductListRepository;
 import br.com.luizalabs.test.services.ClientService;
@@ -13,7 +14,6 @@ import br.com.luizalabs.test.services.ProductListService;
 import br.com.luizalabs.test.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -43,6 +43,17 @@ public class ProductListServiceImp implements ProductListService {
         Integer actualPage = (page>0)?page-1:1;
         Integer offset = actualPage*sizePagination;
         return productListRepository.listProducts(userId, offset, sizePagination).orElse(productListBuilder());
+    }
+
+    @Override
+    public void create(ProductList productList) throws ProductListException {
+        productListRepository.create(productList);
+    }
+
+    @Override
+    public void deleteByUserId(Long id) throws ClientException {
+        if(!productListRepository.deleteByUserId(id))
+            throw new ClientException("Error with remove product list");
     }
 
     public ProductList productListBuilder(){

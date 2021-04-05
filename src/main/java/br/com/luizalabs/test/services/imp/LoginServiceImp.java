@@ -38,6 +38,7 @@ public class LoginServiceImp implements LoginService {
 
     private User login(String email) throws UserNotFoundException, UserException {
         User user = userService.getUserByEmail(email);
+        user.setToken(jwtToken.generateToken(email));
         userService.updateUserToken(user.getEmail(),jwtToken.generateToken(email));
         return  user;
     }

@@ -65,4 +65,16 @@ public class ProductListRepositoryImp implements ProductListRepository {
         return Optional.ofNullable(result.getUniqueMappedResult());
     }
 
+    @Override
+    public boolean deleteByUserId(Long userId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(userId));
+         try {
+             mongoTemplate.remove(query, ProductList.class);
+             return  true;
+         }catch (Exception e){
+             return  false;
+         }
+    }
+
 }

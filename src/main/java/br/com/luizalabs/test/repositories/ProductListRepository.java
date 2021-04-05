@@ -14,4 +14,5 @@ public interface ProductListRepository {
     boolean existsLists(Long userId);
     boolean existsProductInList(UUID productId, Long userId);
     Optional<ProductList> listProducts(Long userId, Integer offset, Integer sizePagination);
+    boolean deleteByUserId(Long id);
 }
