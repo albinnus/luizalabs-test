@@ -23,3 +23,5 @@ api:
 
 product-list:
   size-pagination: 5
+jwt:
+  secret: AGDasgiHDQGJLDfhuaegwqidvxjfvwme

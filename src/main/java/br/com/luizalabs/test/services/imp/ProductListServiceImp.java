@@ -39,11 +39,10 @@ public class ProductListServiceImp implements ProductListService {
     }
 
     @Override
-    public ProductListPaginationDto productList(Long userId, Integer page) {
+    public ProductList productList(Long userId, Integer page) {
         Integer actualPage = (page>0)?page-1:1;
         Integer offset = actualPage*sizePagination;
-        ProductList productList = productListRepository.listProducts(userId, offset, sizePagination).orElse(productListBuilder());
-        return productList.toPaginationDto();
+        return productListRepository.listProducts(userId, offset, sizePagination).orElse(productListBuilder());
     }
 
     public ProductList productListBuilder(){

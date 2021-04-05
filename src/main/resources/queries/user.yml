@@ -1,0 +1,6 @@
+user:
+  update-user-token: "UPDATE user SET token= ? WHERE email = ? "
+  select-user-id: "SELECT * FROM user WHERE id = ?"
+  select-user-email: "SELECT * FROM  user WHERE email = ?"
+  select-user-auth: "select email as username, password, enabled from user where email = ?"
+  select-user-authority: "select email as username, 1 as authority from user where email = ?"

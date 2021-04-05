@@ -5,6 +5,7 @@ import br.com.luizalabs.test.dtos.ProductListDto;
 import br.com.luizalabs.test.dtos.ProductListPaginationDto;
 import br.com.luizalabs.test.exceptions.*;
 import br.com.luizalabs.test.mappers.entities.ClientMapper;
+import br.com.luizalabs.test.mappers.entities.ProductListMapper;
 import br.com.luizalabs.test.services.ClientService;
 import br.com.luizalabs.test.services.ProductListService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class ClientController {
 
     private final ClientService clientService;
     private final ClientMapper clientMapper;
+    private final ProductListMapper productListMapper;
     private final ProductListService productListService;
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
@@ -39,7 +41,7 @@ public class ClientController {
 
     @GetMapping("/{id}/products")
     public ProductListPaginationDto getProducts(@PathVariable("id") Long userId, @RequestParam Optional<Integer> page) throws ProductNotFoundException {
-       return productListService.productList(userId, page.orElseGet(()->1) );
+       return  productListMapper.toPaginationDto(productListService.productList(userId, page.orElseGet(()->1)));
     }
 
     @PostMapping("/{id}/products")

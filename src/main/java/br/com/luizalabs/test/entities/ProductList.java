@@ -20,8 +20,4 @@ public class ProductList implements Serializable {
     private String uuid;
     private Long userId;
     private HashSet<Product> list;
-
-    public ProductListPaginationDto toPaginationDto(){
-        return ProductListPaginationDto.builder().products(this.list).build();
-    }
 }
