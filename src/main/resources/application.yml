@@ -20,3 +20,6 @@ api:
   product:
     url: http://challenge-api.luizalabs.com/api/product
     name: product-client
+
+product-list:
+  size-pagination: 5

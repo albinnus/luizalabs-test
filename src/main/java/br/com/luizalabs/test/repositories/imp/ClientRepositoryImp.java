@@ -8,7 +8,6 @@ import br.com.luizalabs.test.mappers.repositories.ClientRepositoryMapper;
 import br.com.luizalabs.test.properties.ClientQueries;
 import br.com.luizalabs.test.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

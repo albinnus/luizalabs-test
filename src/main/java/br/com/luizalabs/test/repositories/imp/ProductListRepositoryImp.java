@@ -5,20 +5,25 @@ import br.com.luizalabs.test.entities.ProductList;
 import br.com.luizalabs.test.exceptions.ProductListException;
 import br.com.luizalabs.test.repositories.ProductListRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
 public class ProductListRepositoryImp implements ProductListRepository {
     private final MongoTemplate mongoTemplate;
-    private final MongoOperations mongoOperations;
+
+
 
     @Override
     public void create(ProductList productList) throws ProductListException {
@@ -51,5 +56,13 @@ public class ProductListRepositoryImp implements ProductListRepository {
         return mongoTemplate.exists(query,ProductList.class);
     }
 
+    @Override
+    public Optional<ProductList> listProducts(Long userId, Integer offset, Integer sizePagination){
+        ProjectionOperation project = Aggregation.project().and("userId").as("userId").and("list").slice(sizePagination,offset).as("list").and("list").size().as("count");
+        AggregationOperation match = Aggregation.match(Criteria.where("userId").is(userId));
+        Aggregation aggregation = Aggregation.newAggregation(project, match);
+        AggregationResults<ProductList> result = mongoTemplate.aggregate(aggregation, ProductList.class, ProductList.class);
+        return Optional.ofNullable(result.getUniqueMappedResult());
+    }
 
 }
