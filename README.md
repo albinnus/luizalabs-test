@@ -1,5 +1,7 @@
 ## **Teste Luizalabs**
 
+Criação de API para gerenciar a lista de produtos favoritos de um determinado cliente.
+
 ## Tecnologias
 
 - SpringBoot
