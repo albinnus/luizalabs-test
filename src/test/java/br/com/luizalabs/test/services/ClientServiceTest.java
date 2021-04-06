@@ -13,7 +13,6 @@ import br.com.luizalabs.test.services.imp.ClientServiceImp;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.util.HashSet;
 
@@ -25,6 +24,7 @@ public class ClientServiceTest {
     private final ProductListRepository productListRepository = mock(ProductListRepositoryImp.class);
     private final ClientService clientService = new ClientServiceImp(clientRepository, productListRepository);
     private Client client;
+
     @BeforeEach
     public void setup(){
         client = Client.builder().id(1L).name("teste").email("teste@teste.com").build();

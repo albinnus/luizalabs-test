@@ -56,7 +56,7 @@ public class ProductListServiceImp implements ProductListService {
             throw new ClientException("Error with remove product list");
     }
 
-    public ProductList productListBuilder(){
+    private ProductList productListBuilder(){
         return ProductList.builder().list(new HashSet<>()).build();
     }
 
