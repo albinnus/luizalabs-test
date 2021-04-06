@@ -11,8 +11,8 @@ import java.util.UUID;
 public interface ProductListRepository {
     void create(ProductList productList) throws ProductListException;
     void addProduct(Product product, Long userId);
-    boolean existsLists(Long userId);
     boolean existsProductInList(UUID productId, Long userId);
     Optional<ProductList> listProducts(Long userId, Integer offset, Integer sizePagination);
     boolean deleteByUserId(Long id);
+    boolean deleteProduct(UUID productId, Long userId);
 }

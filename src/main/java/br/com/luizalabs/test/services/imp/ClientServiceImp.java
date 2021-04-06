@@ -39,7 +39,7 @@ public class ClientServiceImp implements ClientService {
 
     @Override
     @CachePut(cacheNames ="Client", key = "#id")
-    public Client updateById(Long id, Client client) throws ClientNotExistsException, ClientException {
+    public Client updateById(Long id, Client client) throws ClientNotExistsException, ClientException, ClientAlreadyExistsException {
         Client clientUpdate = findById(id);
         clientUpdate.setEmail(client.getEmail());
         clientUpdate.setName(client.getName());
@@ -50,8 +50,9 @@ public class ClientServiceImp implements ClientService {
     @Override
     @Transactional(rollbackOn = ClientException.class)
     @CacheEvict(cacheNames = "Client", key = "#id")
-    public void deleteById(Long id) throws ClientException {
-        if(!clientRepository.delete(id)){
+    public void deleteById(Long id) throws ClientException, ClientNotExistsException {
+        Client client = findById(id);
+        if(!clientRepository.delete(client.getId())){
             throw new ClientException("Error delete cliente");
         }
         productListRepository.deleteByUserId(id);

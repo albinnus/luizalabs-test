@@ -115,6 +115,7 @@ public class ClientServiceTest {
     @Test
     @SneakyThrows
     void deleteById(){
+        when(clientRepository.findById(1L)).thenReturn(Client.builder().id(1L).build());
         when(clientRepository.delete(1L)).thenReturn(true);
         when(productListRepository.deleteByUserId(1L)).thenReturn(true);
         clientService.deleteById(1L);
@@ -125,11 +126,11 @@ public class ClientServiceTest {
     @Test
     @SneakyThrows
     void deleteByIdClientException(){
+        when(clientRepository.findById(1L)).thenReturn(Client.builder().id(1L).build());
         when(clientRepository.delete(1L)).thenReturn(false);
         when(productListRepository.deleteByUserId(1L)).thenReturn(true);
         assertThrows(ClientException.class, () -> clientService.deleteById(1L));
         verify(productListRepository,times(0)).deleteByUserId(1L);
 
     }
-
 }

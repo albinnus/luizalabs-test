@@ -14,4 +14,5 @@ public class Product implements Serializable {
     private String image;
     private String brand;
     private String title;
+    private String reviewScore;
 }

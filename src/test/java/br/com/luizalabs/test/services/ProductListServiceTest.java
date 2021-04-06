@@ -4,6 +4,8 @@ import br.com.luizalabs.test.entities.Client;
 import br.com.luizalabs.test.entities.Product;
 import br.com.luizalabs.test.entities.ProductList;
 import br.com.luizalabs.test.exceptions.ClientException;
+import br.com.luizalabs.test.exceptions.ClientNotExistsException;
+import br.com.luizalabs.test.exceptions.ProductListRemoveException;
 import br.com.luizalabs.test.properties.ProductListProperties;
 import br.com.luizalabs.test.repositories.ProductListRepository;
 import br.com.luizalabs.test.services.imp.ProductListServiceImp;
@@ -61,6 +63,7 @@ public class ProductListServiceTest {
     @Test
     @SneakyThrows
     void productList(){
+        when(clientService.findById(1L)).thenReturn(client);
         when(productListRepository.listProducts(1L,0,1)).thenReturn(Optional.of(ProductList.builder().list(new HashSet<>()).build()));
         ProductList productListMock = productListService.productList(1L, 1);
         verify(productListRepository,times(1)).listProducts(1L, 0, 1);
@@ -88,5 +91,35 @@ public class ProductListServiceTest {
         when(productListRepository.deleteByUserId(1L)).thenReturn(false);
         assertThrows(ClientException.class, () -> productListService.deleteByUserId(1L));
         verify(productListRepository,times(1)).deleteByUserId(1L);
+    }
+
+    @Test
+    @SneakyThrows
+    void deleteProductInList(){
+        UUID uuid = UUID.randomUUID();
+        when(clientService.findById(1L)).thenReturn(client);
+        when(productListRepository.deleteProduct(uuid,1L)).thenReturn(true);
+        productListService.deleteProductInList(uuid, 1L);
+        verify(productListRepository, times(1)).deleteProduct(uuid,1L);
+    }
+
+    @Test
+    @SneakyThrows
+    void deleteProductInListException(){
+        UUID uuid = UUID.randomUUID();
+        when(clientService.findById(1L)).thenReturn(client);
+        when(productListRepository.deleteProduct(uuid,1L)).thenReturn(false);
+        assertThrows(ProductListRemoveException.class, () -> productListService.deleteProductInList(uuid,1L));
+        verify(productListRepository,times(1)).deleteProduct(uuid,1L);
+    }
+
+    @Test
+    @SneakyThrows
+    void deleteProductInListClientException(){
+        UUID uuid = UUID.randomUUID();
+        when(clientService.findById(1L)).thenThrow(ClientNotExistsException.class);
+        when(productListRepository.deleteProduct(uuid,1L)).thenReturn(false);
+        assertThrows(ClientNotExistsException.class, () -> productListService.deleteProductInList(uuid,1L));
+        verify(productListRepository,times(0)).deleteProduct(uuid,1L);
     }
 }

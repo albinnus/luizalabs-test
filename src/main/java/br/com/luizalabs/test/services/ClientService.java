@@ -9,6 +9,6 @@ import br.com.luizalabs.test.exceptions.ProductListException;
 public interface ClientService {
     Client create(Client client) throws ClientAlreadyExistsException, ClientException, ProductListException;
     Client findById(Long id) throws ClientNotExistsException, ClientException;
-    Client updateById(Long id, Client client) throws ClientNotExistsException, ClientException;
-    void deleteById(Long id) throws ClientException;
+    Client updateById(Long id, Client client) throws ClientNotExistsException, ClientException, ClientAlreadyExistsException;
+    void deleteById(Long id) throws ClientException, ClientNotExistsException;
 }

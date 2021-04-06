@@ -60,7 +60,7 @@ public class ClientRepositoryImp implements ClientRepository {
     }
 
     @Override
-    public void update(Client client) throws ClientException {
+    public void update(Client client) throws ClientException, ClientAlreadyExistsException {
         try {
             jdbcTemplate.update( connection -> {
                 PreparedStatement ps = connection.prepareStatement(clientQueries.getUpdateClientById(), Statement.RETURN_GENERATED_KEYS);
@@ -69,7 +69,9 @@ public class ClientRepositoryImp implements ClientRepository {
                 ps.setLong(3, client.getId());
                 return ps;
             });
-        }catch (Exception e){
+        }catch (DuplicateKeyException d){
+            throw  new ClientAlreadyExistsException(client.getEmail());
+        } catch(Exception e){
             throw  new ClientException(e.getMessage());
         }
 

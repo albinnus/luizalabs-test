@@ -3,10 +3,7 @@ package br.com.luizalabs.test.services.imp;
 import br.com.luizalabs.test.entities.Client;
 import br.com.luizalabs.test.entities.Product;
 import br.com.luizalabs.test.entities.ProductList;
-import br.com.luizalabs.test.exceptions.ClientException;
-import br.com.luizalabs.test.exceptions.ClientNotExistsException;
-import br.com.luizalabs.test.exceptions.ProductListException;
-import br.com.luizalabs.test.exceptions.ProductNotFoundException;
+import br.com.luizalabs.test.exceptions.*;
 import br.com.luizalabs.test.properties.ProductListProperties;
 import br.com.luizalabs.test.repositories.ProductListRepository;
 import br.com.luizalabs.test.services.ClientService;
@@ -38,10 +35,11 @@ public class ProductListServiceImp implements ProductListService {
     }
 
     @Override
-    public ProductList productList(Long userId, Integer page) {
+    public ProductList productList(Long userId, Integer page) throws ClientNotExistsException, ClientException {
         Integer actualPage = (page>0)?page-1:1;
         Integer offset = actualPage*productListProperties.getSizePagination();
-        return productListRepository.listProducts(userId, offset, productListProperties.getSizePagination()).orElse(productListBuilder());
+        Client client = clientService.findById(userId);
+        return productListRepository.listProducts(client.getId(), offset, productListProperties.getSizePagination()).orElse(productListBuilder());
     }
 
     @Override
@@ -55,6 +53,11 @@ public class ProductListServiceImp implements ProductListService {
             throw new ClientException("Error with remove product list");
     }
 
+    public void deleteProductInList(UUID productId, Long id) throws ProductListRemoveException, ClientNotExistsException, ClientException {
+        Client client = clientService.findById(id);
+        if(!productListRepository.deleteProduct(productId, client.getId()))
+            throw new ProductListRemoveException(productId, client.getId());
+    }
     private ProductList productListBuilder(){
         return ProductList.builder().list(new HashSet<>()).build();
     }

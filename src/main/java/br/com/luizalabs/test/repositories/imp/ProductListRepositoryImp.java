@@ -4,6 +4,7 @@ import br.com.luizalabs.test.entities.Product;
 import br.com.luizalabs.test.entities.ProductList;
 import br.com.luizalabs.test.exceptions.ProductListException;
 import br.com.luizalabs.test.repositories.ProductListRepository;
+import com.mongodb.BasicDBObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -41,12 +42,18 @@ public class ProductListRepositoryImp implements ProductListRepository {
         mongoTemplate.updateFirst(query,new Update().push("list",product),ProductList.class);
     }
 
-    @Override
-    public boolean existsLists(Long userId) {
+    public boolean deleteProduct(UUID productId, Long userId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("userId").is(userId));
-        return mongoTemplate.exists(query,ProductList.class);
+        try {
+            mongoTemplate.updateFirst(query,new Update().pull("list",new BasicDBObject("id",productId)),ProductList.class);
+            return  true;
+        }catch (Exception e){
+            return false;
+        }
     }
+
+
 
     @Override
     public boolean existsProductInList(UUID productId, Long userId) {

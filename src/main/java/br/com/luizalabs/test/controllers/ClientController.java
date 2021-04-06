@@ -35,13 +35,13 @@ public class ClientController {
     }
 
     @PutMapping(value = "/{id}", produces = "application/json")
-    public ClientDto updateById(@PathVariable("id") long id, @Valid @RequestBody ClientDto clientDto) throws ClientNotExistsException, ClientException {
+    public ClientDto updateById(@PathVariable("id") long id, @Valid @RequestBody ClientDto clientDto) throws ClientNotExistsException, ClientException, ClientAlreadyExistsException {
         return  clientMapper.toDto(clientService.updateById(id, clientMapper.toEntity(clientDto)));
     }
 
 
     @GetMapping("/{id}/products")
-    public ProductListPaginationDto getProducts(@PathVariable("id") Long userId, @RequestParam Optional<Integer> page) throws ProductNotFoundException {
+    public ProductListPaginationDto getProducts(@PathVariable("id") Long userId, @RequestParam Optional<Integer> page) throws ClientNotExistsException, ClientException {
        return  productListMapper.toPaginationDto(productListService.productList(userId, page.orElseGet(()->1)));
     }
 
@@ -50,8 +50,12 @@ public class ClientController {
        productListService.addProduct(productListDto.getProductId(), userId);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteClientById(@PathVariable("id") Long userId) throws ClientException {
+    @DeleteMapping("/{id}/products")
+    public void deleteProduct(@PathVariable("id") Long userId,@Valid @RequestBody ProductListDto productListDto) throws ProductNotFoundException, ProductListRemoveException, ClientNotExistsException, ClientException {
+        productListService.deleteProductInList(productListDto.getProductId(), userId);
+    }
+        @DeleteMapping("/{id}")
+    public void deleteClientById(@PathVariable("id") Long userId) throws ClientException, ClientNotExistsException {
         clientService.deleteById(userId);
     }
 }

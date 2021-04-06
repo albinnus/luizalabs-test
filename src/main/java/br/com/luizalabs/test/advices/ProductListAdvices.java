@@ -2,6 +2,7 @@ package br.com.luizalabs.test.advices;
 
 import br.com.luizalabs.test.dtos.ApiErrorDto;
 import br.com.luizalabs.test.exceptions.ProductListException;
+import br.com.luizalabs.test.exceptions.ProductListRemoveException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -16,4 +17,11 @@ public class ProductListAdvices {
     ApiErrorDto productListErrorAdviceHandle(ProductListException p){
         return ApiErrorDto.builder().status(HttpStatus.NOT_FOUND).timestamp(LocalDateTime.now()).message(p.getMessage()).build();
     }
+
+    @ExceptionHandler(ProductListRemoveException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    ApiErrorDto productProductListRemoveErrorAdviceHandle(ProductListRemoveException p){
+        return ApiErrorDto.builder().status(HttpStatus.NOT_FOUND).timestamp(LocalDateTime.now()).message(p.getMessage()).build();
+    }
+
 }

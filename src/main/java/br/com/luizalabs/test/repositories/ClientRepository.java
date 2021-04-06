@@ -8,7 +8,7 @@ import br.com.luizalabs.test.exceptions.ClientNotExistsException;
 public interface ClientRepository {
     Client create(Client client) throws ClientAlreadyExistsException, ClientException;
     Client findById(Long id) throws ClientNotExistsException, ClientException;
-    void update(Client client) throws ClientException;
+    void update(Client client) throws ClientException, ClientAlreadyExistsException;
     boolean delete(Long id) throws ClientException;
 
 
