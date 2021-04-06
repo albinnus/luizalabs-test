@@ -1,6 +1,5 @@
 package br.com.luizalabs.test.services;
 
-import br.com.luizalabs.test.dtos.ProductListPaginationDto;
 import br.com.luizalabs.test.entities.ProductList;
 import br.com.luizalabs.test.exceptions.ClientException;
 import br.com.luizalabs.test.exceptions.ClientNotExistsException;

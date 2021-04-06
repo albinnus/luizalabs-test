@@ -9,7 +9,6 @@ import br.com.luizalabs.test.exceptions.ProductListException;
 import br.com.luizalabs.test.repositories.ClientRepository;
 import br.com.luizalabs.test.repositories.ProductListRepository;
 import br.com.luizalabs.test.services.ClientService;
-import br.com.luizalabs.test.services.ProductListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;

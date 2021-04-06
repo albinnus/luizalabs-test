@@ -5,7 +5,6 @@ import br.com.luizalabs.test.exceptions.UserException;
 import br.com.luizalabs.test.exceptions.UserNotFoundException;
 import br.com.luizalabs.test.repositories.UserRepository;
 import br.com.luizalabs.test.services.UserService;
-import br.com.luizalabs.test.utils.JwtToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

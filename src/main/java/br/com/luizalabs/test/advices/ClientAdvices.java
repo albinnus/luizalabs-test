@@ -4,16 +4,11 @@ import br.com.luizalabs.test.dtos.ApiErrorDto;
 import br.com.luizalabs.test.exceptions.ClientAlreadyExistsException;
 import br.com.luizalabs.test.exceptions.ClientException;
 import br.com.luizalabs.test.exceptions.ClientNotExistsException;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice

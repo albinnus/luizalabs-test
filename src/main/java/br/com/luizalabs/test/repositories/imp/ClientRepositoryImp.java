@@ -4,7 +4,6 @@ import br.com.luizalabs.test.entities.Client;
 import br.com.luizalabs.test.exceptions.ClientAlreadyExistsException;
 import br.com.luizalabs.test.exceptions.ClientException;
 import br.com.luizalabs.test.exceptions.ClientNotExistsException;
-import br.com.luizalabs.test.exceptions.UserException;
 import br.com.luizalabs.test.mappers.repositories.ClientRepositoryMapper;
 import br.com.luizalabs.test.properties.ClientQueries;
 import br.com.luizalabs.test.repositories.ClientRepository;
@@ -15,7 +14,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;

@@ -1,7 +1,6 @@
 package br.com.luizalabs.test.advices;
 
 import br.com.luizalabs.test.dtos.ApiErrorDto;
-import br.com.luizalabs.test.exceptions.ProductListException;
 import br.com.luizalabs.test.exceptions.UserInvalidCredencialException;
 import br.com.luizalabs.test.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;

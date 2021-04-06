@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 public class ClientServiceTest {
 
     private final ClientRepository clientRepository = mock(ClientRepositoryImp.class);
@@ -44,14 +44,14 @@ public class ClientServiceTest {
     @SneakyThrows
     void createClientAlreadyExistsException(){
         when(clientRepository.create(client)).thenThrow(ClientAlreadyExistsException.class);
-        assertThrows(ClientAlreadyExistsException.class, () ->{ clientService.create(client);});
+        assertThrows(ClientAlreadyExistsException.class, () ->clientService.create(client));
     }
 
     @Test
     @SneakyThrows
     void createClientClientExceptionException(){
         when(clientRepository.create(client)).thenThrow(ClientException.class);
-        assertThrows(ClientException.class, () ->{ clientService.create(client);});
+        assertThrows(ClientException.class, () -> clientService.create(client));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package br.com.luizalabs.test.entities;
 
 
-import br.com.luizalabs.test.dtos.ProductListPaginationDto;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;

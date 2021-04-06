@@ -1,5 +1,5 @@
 package br.com.luizalabs.test.services;
-import br.com.luizalabs.test.entities.Client;
+
 import br.com.luizalabs.test.entities.User;
 import br.com.luizalabs.test.exceptions.UserException;
 import br.com.luizalabs.test.exceptions.UserNotFoundException;
@@ -11,8 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
     private final UserRepository userRepository = mock(UserRepositoryImp.class);
@@ -38,7 +39,7 @@ public class UserServiceTest {
     @SneakyThrows
     void getUserByEmailUserNotFoundException(){
         when(userRepository.findByEmail("teste@teste.com")).thenThrow(UserNotFoundException.class);
-        assertThrows(UserNotFoundException.class, () -> { userService.getUserByEmail("teste@teste.com"); });
+        assertThrows(UserNotFoundException.class, () -> userService.getUserByEmail("teste@teste.com"));
         verify(userRepository, times(1)).findByEmail("teste@teste.com");
     }
 
@@ -46,7 +47,7 @@ public class UserServiceTest {
     @SneakyThrows
     void getUserByEmailUserException(){
         when(userRepository.findByEmail("teste@teste.com")).thenThrow(UserException.class);
-        assertThrows(UserException.class, () -> { userService.getUserByEmail("teste@teste.com"); });
+        assertThrows(UserException.class, () -> userService.getUserByEmail("teste@teste.com"));
         verify(userRepository, times(1)).findByEmail("teste@teste.com");
     }
 

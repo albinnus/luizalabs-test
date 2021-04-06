@@ -11,8 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductServiceTest {
 
@@ -39,7 +40,7 @@ public class ProductServiceTest {
     @SneakyThrows
     void findByIdProductNotFoundException(){
         when(productRepository.getProductById(UUID.fromString("bfeef866-73f2-4f3a-87cf-c4161214324b"))).thenThrow(ProductNotFoundException.class);
-        assertThrows(ProductNotFoundException.class, () -> { productService.findById(UUID.fromString("bfeef866-73f2-4f3a-87cf-c4161214324b"));});
+        assertThrows(ProductNotFoundException.class, () -> productService.findById(UUID.fromString("bfeef866-73f2-4f3a-87cf-c4161214324b")));
         verify(productRepository, times(1)).getProductById(UUID.fromString("bfeef866-73f2-4f3a-87cf-c4161214324b"));
     }
 

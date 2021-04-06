@@ -12,8 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginServiceTest {
     private final UserService userService = mock(UserService.class);
@@ -69,5 +70,11 @@ public class LoginServiceTest {
         assertThrows(UserInvalidCredencialException.class, ()-> loginService.auth(user.getEmail(), user.getPassword()));
     }
 
+    @Test
+    @SneakyThrows
+    public void authUserException(){
+        when(userService.getUserByEmail(user.getEmail())).thenThrow(UserException.class);
+        assertThrows(UserException.class, ()-> loginService.auth(user.getEmail(), user.getPassword()));
+    }
 
 }

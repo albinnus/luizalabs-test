@@ -2,9 +2,9 @@ package br.com.luizalabs.test.dtos;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Data
 public class AuthDto implements Serializable {
