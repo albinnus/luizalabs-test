@@ -105,7 +105,7 @@ Exemplo Header:
 ````
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUB0ZXN0ZS5jb20iLCJleHAiOjE2MTc3MDc5NTEsImlhdCI6MTYxNzcwNjE1MX0.liUtuhBsARRTJE8A3dA8snAlooAR0UBNrV8upxmdHLiD0j_q7xwmsrF9TNPGvVNN0Idv2ntMe7X-R5Sz3-cOEA
 ````
-###Criar Cliente
+### Criar Cliente
 - POST: /client
 - Payload:
 ```json
@@ -132,7 +132,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUB0ZXN0ZS5jb20iLCJle
 }
 ```
 
-###Atualizar Cliente
+### Atualizar Cliente
 - PUT: /client/{Long idClient}
 - Payload:
 ```URL: /client/15```
@@ -160,7 +160,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUB0ZXN0ZS5jb20iLCJle
 }
 ```
 
-###Consultar Cliente
+### Consultar Cliente
 - GET: /client/{Long idClient}
 - Exemplo
 ````
@@ -178,7 +178,7 @@ URL: /client/15
 ```
 
 
-###Adicionar Produtos a Lista do Cliente
+### Adicionar Produtos a Lista do Cliente
 - POST: /client/{Long clientId}/products
 - Payload:
   
@@ -206,7 +206,7 @@ Status: 200
 os ids dos produtos adicionados foram consultados pela api fornecida previamente:
 ```http://challenge-api.luizalabs.com/api/product/1/```
 
-###Consultar Produtos da Lista do Cliente
+### Consultar Produtos da Lista do Cliente
 - GET: /client/{Long userId}/products?page=1
 
 - Exemplo
@@ -232,7 +232,7 @@ URL:  /client/15/products?page=1
 ```
 A consulta está paginada, a configuração default está em 10 itens por página, podendo ser mudada no application yml.
 
-###Remover Produtos a Lista do Cliente
+### Remover Produtos a Lista do Cliente
 - DELETE: /client/{Long clientId}/products
 - Payload:
 
@@ -257,7 +257,7 @@ A consulta está paginada, a configuração default está em 10 itens por págin
 Status: 200
 ```
 
-###Remover  Cliente
+### Remover  Cliente
 - DELETE: /client/{Long clientId}
 - Exemplo
   ```URL: /client/15```
