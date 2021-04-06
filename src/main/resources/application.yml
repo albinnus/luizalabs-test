@@ -15,7 +15,6 @@ spring:
   data:
     mongodb:
       host: localhost
-debug: true
 api:
   product:
     url: http://challenge-api.luizalabs.com/api/product
